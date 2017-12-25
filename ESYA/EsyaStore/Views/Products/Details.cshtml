@@ -1,0 +1,56 @@
+﻿@model IEnumerable<EsyaStore.Models.Product>
+@{
+    ViewBag.Title = "Details";
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">  <h4>Eşya Ayrıntısı</h4></div>
+                <div class="panel-body">
+
+                    <div class="box box-info">
+                        <div class="box-body">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-sm-6">
+                                    <div align="center">
+                                        <img src="@item.Photo" class="img-responsive">
+
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4 style="color:#00b1b1;">@item.ProductName </h4>
+                                    <div class="clearfix"></div>
+                                    <hr style="margin:5px 0 5px 0;">
+                                    <div class="col-sm-5 col-xs-6 tital ">Esya Adı:</div><div class="col-sm-7 col-xs-6 ">@item.ProductName</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Açıklama</div><div class="col-sm-7">@item.Comment</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">İl</div><div class="col-sm-7">@item.Country.CountryName</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Oluşturma Tarihi:</div><div class="col-sm-7">@item.CreatedDate</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Paylaşan Kişi</div><div class="col-sm-7"><a href="@Url.Action("Profiles", "Admin",new { username = item.ApplicationUser.UserName })">@item.ApplicationUser.UserName</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                </div>
+
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

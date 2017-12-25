@@ -1,0 +1,118 @@
+﻿@model EsyaStore.Models.Product
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-2"></div>
+<div class="col-md-10">
+    @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryId, "CountryId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CountryId", null, "Lütfen İl Seçiniz", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DistrictId, "DistrictId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DistrictId", Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="Photo" id="Photo" accept=".jpg,.png,.gif,.JPEG,.jpeg" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        //CountryId  seçildiğinde bu fonksiyonumuz çalışmaya başlıyor
+        $('#CountryId').change(function () {
+            // Seçilen İlin ID sini alıyoruz.
+            var CountryId = $(this).val();
+            /*Seçilen CountryId yi kullanarak
+           Products (controller) sınıfı içerisindeki District(İlceler)
+            Action metodunu çağırıyoruz.
+            Bu metoddan dönen liste sayesinde .each fonksiyonu ile
+            DistrictId isimli DropDownList nesnesini dolduruyoruz.*/
+            if (CountryId != null && CountryId != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("District", "Products")',
+                    data: { CountryId: CountryId },
+                    success: function (District) {
+                        $("#DistrictId > option").remove();
+                        $.each(District, function (index, district) {
+
+                            $('#DistrictId').append($('<option/>', {
+                                value: district.DistrictId,
+                                text: district.DistrictName
+                            }));
+                        });
+                    },
+                    cache: false,
+                    error: function () {
+
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        });
+    });
+    </script>

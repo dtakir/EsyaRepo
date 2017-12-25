@@ -1,0 +1,35 @@
+﻿@model IEnumerable< EsyaStore.Models.Product>
+
+@{
+    ViewBag.Title = "AdminIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+    
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 main-chart"></div>
+        <div class="col-lg-9 main-chart">
+            <div class="custom-bar-chart">
+                <ul class="y-axis">
+                    <li><span>100</span></li>
+                    <li><span>80</span></li>
+                    <li><span>60</span></li>
+                    <li><span>40</span></li>
+                    <li><span>20</span></li>
+                    <li><span>0</span></li>
+                </ul>
+                <div class="bar">
+                    <div class="title">Kullanıcı</div>
+                    <div class="value tooltips" data-original-title="@ViewBag.User" data-toggle="tooltip" data-placement="top">@ViewBag.User%</div>
+                </div>
+                <div class="bar ">
+                    <div class="title">Eşya</div>
+                    <div class="value tooltips" data-original-title="@ViewBag.Product" data-toggle="tooltip" data-placement="top">@ViewBag.Product%</div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>

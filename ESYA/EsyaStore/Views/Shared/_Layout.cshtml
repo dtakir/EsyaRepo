@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="~/Content/Contact.css" rel="stylesheet" />
+    <link href="~/Content/Contact.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/shop-homepage.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+   
+</head>
+
+<body>
+ 
+
+
+
+    <div class="container">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">MENÜ</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span>Product Store</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+            {
+                            <li>
+                                <a href="@Url.Action("Create", "Products")"><span class="glyphicon glyphicon-adjust"></span> EsyaEkle</a>
+                            </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "Products")"><span class="glyphicon glyphicon-th-list"></span> Esyalarım</a>
+                                </li>
+                                <li><a href="@Url.Action("Rising_price", "Home")"><span class="glyphicon glyphicon-arrow-up"></span> Artan Fiyat</a></li>
+                                    <li><a href="@Url.Action("Decreasing_price", "Home")"><span class="glyphicon glyphicon-arrow-down"></span> Azalan Fiyat</a></li>
+
+
+                        }
+
+                        <li>
+                            <a href="@Url.Action("Contact", "Home")"><span class="glyphicon glyphicon-phone"></span> Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (User.Identity.IsAuthenticated == false)
+            {
+                            <li>
+                                <a href="@Url.Action("Login", "Account")"><span class="glyphicon glyphicon-log-in"></span> Giriş Yap</a>
+                            </li>
+
+
+                                <li>
+                                    <a href="@Url.Action("Register", "Account")"><span class="glyphicon glyphicon-record"></span> Kayıt Ol</a>
+                                </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+            {
+
+
+                            <li>
+                                <a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Çıkış</a>
+                            </li>
+
+                                <li>
+                                    <a href="@Url.Action("Profiles", "Admin",new { username = User.Identity.Name }) "><span class="glyphicon glyphicon-user">@User.Identity.Name</span></a>
+                                </li>
+                        }
+                    </ul>
+
+                </div>
+            </nav>
+
+            <!-- /.navbar-collapse -->
+        </div>
+
+        <!-- /.container -->
+
+        <div class="row">
+
+
+      
+                @RenderBody()
+            <div class="scrollup" style="display: block;">
+                <span class="glyphicon glyphicon-circle-arrow-up"></span>
+            </div>
+            </div>
+     
+
+
+            </div>
+        
+
+            <!-- Navigation -->
+
+
+
+</body>
+
+</html>
+<script>
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 200) {
+            $('.scrollup').fadeIn();
+        }
+        else {
+            $('.scrollup').fadeOut();
+        }
+    });
+
+    $('.scrollup').click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+        return false;
+    });
+</script>

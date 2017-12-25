@@ -1,0 +1,44 @@
+﻿@model IEnumerable<EsyaStore.Models.Product>
+@{
+    ViewBag.Title = "ProductTable";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="col-md-offset-2">
+    <div class="content-panel">
+        <hr>
+        <table class="table">
+        
+                <thead>
+                    <tr>
+
+                        <th>ProductName</th>
+                        <th>Price</th>
+                        <th>Comment</th>
+                        <th>Email</th>
+                        <th>UserName</th>
+                        <th>CreatedDate</th>
+                    </tr>
+                </thead>
+@foreach (var item in Model)
+            {
+
+                <tbody>
+                    <tr>
+
+                        <td>@item.ProductName</td>
+                        <td>@item.Price</td>
+                        <td>@item.Comment</td>
+                        <td>@item.Country.CountryName</td>
+                        <td>@item.ApplicationUser.Name</td>
+                        <td>@item.CreatedDate</td>
+                    </tr>
+                   
+                </tbody>
+            }
+        </table>
+    </div><! --/content-panel -->
+</div><!-- /col-md-12 -->
